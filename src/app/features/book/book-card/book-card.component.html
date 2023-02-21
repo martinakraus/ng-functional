@@ -2,6 +2,11 @@
 <h4>{{ content.author | prefix:content.gender }}</h4>
 <h4>{{ content.publishDate | date:'short' }}</h4>
 <button (click)="handleDetailClick()" color="primary" mat-raised-button>Details</button>
+
 <p>
     {{ content.abstract }}
 </p>
+<div *ngIf="currentRating$ | async as currentRating">
+    <button (click)="setRating(currentRating)" color="primary" mat-button>Like</button>
+    <h4>Rating: {{ currentRating.rating }}</h4>
+</div>

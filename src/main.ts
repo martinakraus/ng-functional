@@ -6,7 +6,7 @@ import { AppComponent } from './app/app.component';
 import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
 import { APP_ROUTES } from './app/routes';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiVersionInterceptor } from "./app/interceptors/api-version.interceptor";
@@ -36,7 +36,8 @@ bootstrapApplication(AppComponent, {
             defaultLanguage: 'en',
         })),
         provideHttpClient(
-            withInterceptorsFromDi(),
+            // Todo add InterceptorFromDI
+            // ToDo add Authentication Interceptor
         ),
         importProvidersFrom(BrowserAnimationsModule),
     ],

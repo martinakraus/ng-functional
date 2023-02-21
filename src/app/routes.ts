@@ -16,5 +16,8 @@ export const APP_ROUTES: Routes = [
         path: BOOKS,
         loadChildren: () => import('./features/book/routes')
             .then(m => m.BOOK_ROUTES),
+        // ToDo providers
+        // ToDo provide BookApiService
+        // ToDo add withRequestMadeWithParent
     },
 ];

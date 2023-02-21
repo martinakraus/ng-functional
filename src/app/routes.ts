@@ -5,7 +5,7 @@ import { FeedComponent } from './components/feed/feed.component';
 export const APP_ROUTES: Routes = [
     {
         path: BASE,
-        redirectTo: `/${ FEED }`,
+        redirectTo: `/${FEED}`,
         pathMatch: 'full',
     },
     {

@@ -1,8 +1,8 @@
 <ng-container *ngIf="books$ | async as books; else noBooks">
-    <app-book-card *ngFor="let book of books; let i = index"
-                   [id]="i"
+    <app-book-card (detailClick)="navigateToDetail($event)"
+                   *ngFor="let book of books; let i = index"
                    [content]="book"
-                   (detailClick)="navigateToDetail($event)"
+                   [id]="i"
     ></app-book-card>
 </ng-container>
 <ng-template #noBooks>

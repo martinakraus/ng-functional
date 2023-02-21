@@ -8,11 +8,11 @@ import { Gender } from '../models/types';
 export class PrefixPipe implements PipeTransform {
 
     transform(author: string, gender: Gender | undefined): unknown {
-        switch ( gender ) {
+        switch (gender) {
             case 'male':
-                return `Herr ${ author }`
+                return `Herr ${author}`
             case 'female':
-                return `Frau ${ author }`
+                return `Frau ${author}`
             default:
                 return author;
         }

@@ -1,5 +1,5 @@
 <ng-container *ngIf="book$ | async as book">
-    <button mat-raised-button color="primary" routerLink="/books">{{ 'BACK' | translate }}</button>
+    <button color="primary" mat-raised-button routerLink="/books">{{ 'BACK' | translate }}</button>
     <h3>
         {{ book.title }}
     </h3>
@@ -9,6 +9,6 @@
             {{ book.abstract }}
             <i>{{ book.author }}</i>
         </p>
-        <img [src]="book.cover" [alt]="book.title" class="book-cover" />
+        <img [alt]="book.title" [src]="book.cover" class="book-cover"/>
     </section>
 </ng-container>

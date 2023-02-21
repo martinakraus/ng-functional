@@ -12,52 +12,52 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  standalone: true,
-  imports: [
-    MatMenuModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatSlideToggleModule,
-    NgForOf,
-    TranslateModule,
-    MatToolbarModule,
-    RouterLink,
-  ],
-  styleUrls: [ './header.component.scss' ],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    standalone: true,
+    imports: [
+        MatMenuModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatSlideToggleModule,
+        NgForOf,
+        TranslateModule,
+        MatToolbarModule,
+        RouterLink,
+    ],
+    styleUrls: [ './header.component.scss' ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  toggleControl: FormControl<boolean>;
-  @Output() changeTheme = new EventEmitter<boolean>();
-  languages = [ 'de', 'en' ];
-  languageInUse: string = this.translate.getBrowserLang() ?? this.translate.getDefaultLang();
+    toggleControl: FormControl<boolean>;
+    @Output() changeTheme = new EventEmitter<boolean>();
+    languages = [ 'de', 'en' ];
+    languageInUse: string = this.translate.getBrowserLang() ?? this.translate.getDefaultLang();
 
-  private isInDarkMode: boolean = this.localStorageService.get<boolean>(DARK_MODE_SETTING) ?? false;
-  private destroy$ = new Subject<void>()
+    private isInDarkMode: boolean = this.localStorageService.get<boolean>(DARK_MODE_SETTING) ?? false;
+    private destroy$ = new Subject<void>()
 
-  constructor(private readonly localStorageService: LocalStorageService,
-              private readonly translate: TranslateService) {
-    this.toggleControl = new FormControl<boolean>(this.isInDarkMode, { nonNullable: true });
-  }
+    constructor(private readonly localStorageService: LocalStorageService,
+                private readonly translate: TranslateService) {
+        this.toggleControl = new FormControl<boolean>(this.isInDarkMode, { nonNullable: true });
+    }
 
-  ngOnInit(): void {
-    this.changeTheme.emit(this.isInDarkMode);
+    ngOnInit(): void {
+        this.changeTheme.emit(this.isInDarkMode);
 
-    this.toggleControl.valueChanges.pipe(
-      takeUntil(this.destroy$),
-      tap(darkMode => this.localStorageService.set<boolean>(DARK_MODE_SETTING, darkMode)),
-    ).subscribe((darkMode) => {
-      this.changeTheme.emit(darkMode);
-    });
-  }
+        this.toggleControl.valueChanges.pipe(
+            takeUntil(this.destroy$),
+            tap(darkMode => this.localStorageService.set<boolean>(DARK_MODE_SETTING, darkMode)),
+        ).subscribe((darkMode) => {
+            this.changeTheme.emit(darkMode);
+        });
+    }
 
-  changeLanguage(language: string) {
-    this.languageInUse = language;
-    this.translate.use(language);
-  }
+    changeLanguage(language: string) {
+        this.languageInUse = language;
+        this.translate.use(language);
+    }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-  }
+    ngOnDestroy() {
+        this.destroy$.next();
+    }
 }

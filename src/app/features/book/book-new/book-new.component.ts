@@ -18,18 +18,18 @@ export class BookNewComponent {
     constructor(private readonly form: FormBuilder, private readonly bookApiService: BookApiService, private readonly router: Router) {
     }
 
-    create() {
-        const book: Partial<Book> = this.newForm.getRawValue();
-
-        this.bookApiService.create(book).subscribe(() => this.router.navigate([ '/books' ]));
-    }
-
     get title(): AbstractControl<string> {
         return this.newForm.get('title') as AbstractControl<string>;
     }
 
     get isbn(): AbstractControl<string> {
         return this.newForm.get('isbn') as AbstractControl<string>;
+    }
+
+    create() {
+        const book: Partial<Book> = this.newForm.getRawValue();
+
+        this.bookApiService.create(book).subscribe(() => this.router.navigate([ '/books' ]));
     }
 
     private buildForm() {

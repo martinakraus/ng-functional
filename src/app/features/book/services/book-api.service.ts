@@ -13,14 +13,14 @@ export class BookApiService {
     }
 
     create(book: Partial<Book>): Observable<Book> {
-        return this.http.post<Book>(`${ this.API_URL }/books/`, book);
+        return this.http.post<Book>(`${this.API_URL}/books/`, book);
     }
 
     getAll(): Observable<Book[]> {
-        return this.http.get<Book[]>(`${ this.API_URL }/books`);
+        return this.http.get<Book[]>(`${this.API_URL}/books`);
     }
 
     getByIsbn(isbn: string): Observable<Book> {
-        return this.http.get<Book>(`${ this.API_URL }/books/${ isbn }`);
+        return this.http.get<Book>(`${this.API_URL}/books/${isbn}`);
     }
 }

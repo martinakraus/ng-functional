@@ -23,7 +23,7 @@ export class BookDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.book$ = this.route.params.pipe(
-            switchMap((params) => this.bookApiService.getByIsbn(params[ 'isbn' ])),
+            switchMap((params) => this.bookApiService.getByIsbn(params['isbn'])),
         );
     }
 }

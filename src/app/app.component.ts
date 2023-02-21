@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, Inject } from '@angular/core';
+import { Component, HostBinding, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { WINDOW } from "./window.token";
@@ -14,12 +14,12 @@ import { WINDOW } from "./window.token";
     styleUrls: [ './app.component.scss' ],
 })
 export class AppComponent {
-    newWindow = inject(WINDOW);
     private readonly darkModeClassName = 'darkMode';
     @HostBinding('class') private className = '';
 
+
+    // ToDo move to inject function
     constructor(@Inject(WINDOW) window: Window) {
-        //  console.log(this.newWindow);
     }
 
     changeTheme(isInDarkMode: boolean) {

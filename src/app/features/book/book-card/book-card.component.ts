@@ -1,9 +1,8 @@
-import { Component, EnvironmentInjector, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Book } from '../models/book';
 import { PrefixPipe } from '../pipes/prefix.pipe';
-import { rating, setRating } from "../services/calculate-ratings";
 import { Rating } from "../models/rating";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { MatButtonModule } from "@angular/material/button";
 import { AsyncPipe, DatePipe, NgIf } from "@angular/common";
 
@@ -20,22 +19,15 @@ export class BookCardComponent implements OnInit {
 
     currentRating$!: Observable<Rating | undefined>;
 
-    constructor(private injector: EnvironmentInjector) {
+    constructor() {
     }
 
     ngOnInit() {
-        this.injector.runInContext(() => {
-            this.currentRating$ = rating(this.content.id);
-        })
+        this.currentRating$ = of({ id: this.content.id, rating: 0 })
     }
 
     setRating(currentRating: Rating) {
-        this.injector.runInContext(() => {
-            setRating({
-                id: currentRating.id,
-                rating: currentRating.rating++
-            }).subscribe()
-        })
+        // ToDo call setRating function
     };
 
     handleDetailClick() {

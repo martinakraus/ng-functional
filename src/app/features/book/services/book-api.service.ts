@@ -3,9 +3,7 @@ import { Book } from '../models/book';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class BookApiService {
     private readonly API_URL = 'http://localhost:4730'
 

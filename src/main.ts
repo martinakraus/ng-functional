@@ -6,9 +6,10 @@ import { AppComponent } from './app/app.component';
 import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
 import { APP_ROUTES } from './app/routes';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ApiVersionInterceptor } from "./app/interceptors/api-version.interceptor";
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -20,6 +21,11 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ApiVersionInterceptor,
+            multi: true
+        },
         provideRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
         importProvidersFrom(TranslateModule.forRoot({
             loader: {
@@ -29,11 +35,10 @@ bootstrapApplication(AppComponent, {
             },
             defaultLanguage: 'en',
         })),
-        provideHttpClient(),
-        {
-            provide: Window,
-            useValue: window,
-        },
+        provideHttpClient(
+            withInterceptorsFromDi(),
+            //   withInterceptors([ Authorization ]),
+        ),
         importProvidersFrom(BrowserAnimationsModule),
     ],
 }).catch(err => console.error(err));
